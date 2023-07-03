@@ -1,0 +1,28 @@
+<section class="purchase-edit">
+    <ng-container *ngIf="purchase?.status">
+
+        <h2>Compra {{ purchase.id }}</h2>
+
+        <app-purchase-form (submitEvent)="editPurchase($event)" [purchase]="purchase" buttonText="Editar"></app-purchase-form>
+        <div class="informations-unmodifiable">
+            <p-divider></p-divider>
+            <h3>Você não pode editar as informações abaixo</h3>
+            <div class="form-group">
+                <label>Total</label>
+                <input [disabled]="true" pInputText type="text" [value]="purchase.total | currency: 'BRL'">
+            </div>
+
+            <ul class="products">
+                <legend>
+                    Produtos
+                </legend>
+                <li *ngFor="let products of purchase.produtos">
+                    <h4>{{ products.nome }}</h4>
+                    <p class="price">{{ products.preco | currency : "BRL" }}</p>
+                    <p class="description">{{ products.descricao }}</p>
+                    <br>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+</section>

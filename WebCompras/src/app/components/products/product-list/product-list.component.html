@@ -1,0 +1,14 @@
+<section class="products-container">
+
+    <ul *ngIf="!isLoading else loading" class="product-list">
+        <ng-container *ngFor="let product of products">
+            <app-product-card [product]="product"></app-product-card>
+        </ng-container>
+    </ul>
+
+    <ng-template #loading>
+        <div class="loading-container">
+            <i class="pi pi-spin pi-spinner"></i>
+        </div>
+    </ng-template>
+</section>

@@ -1,0 +1,5 @@
+<section class="product-edit">
+    <ng-container *ngIf="product?.nome">
+        <app-product-form (submitEvent)="editProduct($event)" buttonText="Editar" [product]="product"></app-product-form>
+    </ng-container>
+</section>

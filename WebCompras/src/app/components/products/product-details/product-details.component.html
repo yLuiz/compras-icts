@@ -1,0 +1,40 @@
+<section class="product-details">
+    <div class="product-container" *ngIf="!isLoading else loading">
+        <div class="view"></div>
+        <div class="actions">
+            <button *ngIf="!productAlreadyInCart" (click)="goToEditProduct(product.id!)" pButton class="p-button-info p-button-rounded edit-button">
+                <i class="pi pi-pencil"></i>
+            </button>
+            <button *ngIf="!productAlreadyInCart" (click)="deleteProduct(product.id!)" pButton class="p-button-danger p-button-rounded delete-button">
+                <i class="pi pi-trash"></i>
+            </button>
+        </div>
+        <div class="content">
+            <div class="header">
+                <h2>
+                    {{ product.nome }}
+                </h2>
+                <p class="price">{{ product.preco | currency: "BRL" }}</p>
+
+                <button *ngIf="productAlreadyInCart" (click)="removeOfCart(product)" pButton class="p-button-danger">Tirar do carrinho</button>
+                <button *ngIf="!productAlreadyInCart" (click)="addToCart(product)" pButton class="p-button-success">Comprar</button>
+
+            </div>
+
+            <div class="description">
+                <h3>
+                    Descrição
+                </h3>
+                <p>
+                    {{ product.descricao }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading-container">
+            <i class="pi pi-spin pi-spinner"></i>
+        </div>
+    </ng-template>
+</section>

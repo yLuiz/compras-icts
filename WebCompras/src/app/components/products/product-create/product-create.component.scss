@@ -1,0 +1,13 @@
+.product-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host ::ng-deep {
+    /* ...you styles will here */
+    app-product-form {
+        width: 100%;
+        max-width: 600px;
+    }
+ }

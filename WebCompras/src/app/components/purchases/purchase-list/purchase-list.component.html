@@ -1,0 +1,36 @@
+<section class="purchase-list-section">
+    <ul *ngIf="!isLoading else loading" class="purchase-list">
+
+        <h2 class="no-purchases" *ngIf="!purchases.length && !isLoading">Não há compras registradas</h2>
+
+        <p-accordion>
+            <ng-container *ngFor="let purchase of purchases">
+                <p-accordionTab [header]="'Compra ' + purchase.id">
+                    <h2>Status da compra: {{ purchase.status | uppercase }}</h2>
+                    <p>Forma de pagamento: {{ purchase.tipo_pagamento | uppercase }}</p>
+                    <p>Total da compra: <br /> {{ purchase.total | currency : "BRL" }}</p>
+                    <br>
+                    <h3>Produtos</h3>
+                    <ul style="list-style: none;">
+                        <li *ngFor="let products of purchase.produtos">
+                            <p>Nome: {{ products.nome }}</p>
+                            <p>Descrição: {{ products.descricao }}</p>
+                            <p>Preço: {{ products.preco | currency : "BRL" }}</p>
+                            <br>
+                        </li>
+                    </ul>
+                    <div class="actions">
+                        <button (click)="goToEditPurchase(purchase.id!)" pButton class="p-button-info">Editar</button>
+                        <button (click)="deletePurchase(purchase.id!)" pButton class="p-button-danger">Excluir</button>
+                    </div>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </ul>
+
+    <ng-template #loading>
+        <div class="loading-container">
+            <i class="pi pi-spin pi-spinner"></i>
+        </div>
+    </ng-template>
+</section>

@@ -1,0 +1,29 @@
+<section class="purchase-cart">
+    <ul class="purchase-cart-list">
+
+        <h2 *ngIf="!productsInCart.length">Não há produtos no carrinho</h2>
+
+        <li *ngFor="let product of productsInCart">
+            <div class="view"></div>
+            <button (click)="removeItem(product.id!)" pButton class="p-button-danger p-button-rounded">
+                <i class="pi pi-trash"></i>
+            </button>
+            <div class="content">
+                <div class="header">
+                    <h2>{{ product.nome }}</h2>
+                    <p class="price">{{ product.preco | currency: "BRL" }}</p>
+                </div>
+                <p class="description">
+                    {{ product.descricao }} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita, harum necessitatibus, dolores alias porro quia nisi voluptatum sint asperiores soluta assumenda repudiandae tenetur aut culpa qui a dolor vitae. Quibusdam?
+                </p>
+            </div>
+        </li>
+    </ul>
+    <footer *ngIf="productsInCart.length">
+        <p-dropdown [options]="paymentsOptions" [(ngModel)]="paymentSelected" optionLabel="name"></p-dropdown>
+        <span  class="total-price">
+            Total: {{ totalPrice | currency: "BRL" }}
+        </span>
+        <button class="finish-purchase-button" (click)="finishPurchase()" pButton>Finalizar compra</button>
+    </footer>
+</section>

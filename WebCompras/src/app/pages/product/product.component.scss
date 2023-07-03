@@ -1,0 +1,22 @@
+.toolbar {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 90px;
+
+    padding: 20px;
+
+    a {
+        background-color: #FFF;
+        color: var(--primary-color);
+        padding: 10px 20px;
+        text-decoration: none;
+
+        &:hover {
+            background-color: var(--primary-color);
+            color: #FFF;
+            opacity: 0.7;
+        }
+    }
+}

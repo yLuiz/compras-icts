@@ -1,0 +1,94 @@
+.purchase-cart {
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-left: 20px;
+
+    .purchase-cart-list {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        margin-bottom: 120px;
+
+        li {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 20px;
+    
+            .view {
+                min-width: 120px;
+                min-height: 120px;
+                background-size: 20%;
+                border-radius: 50%;
+            }
+            .content {
+
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+                .header {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .description {
+                    overflow: auto;
+                    max-height: 60px;
+                    padding-right: 30px;
+                }
+            }
+
+            button {
+                position: absolute;
+
+                display: flex;
+                justify-content: center;
+                width: 30px;
+
+                bottom: 0px;
+                left: 5px;
+
+                i {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 100px;
+        position: fixed;
+        bottom: 0;
+        padding: 0 30px;
+        margin-bottom: 20px;
+
+        gap: 35px;
+
+        flex-wrap: wrap;
+
+        .total-price {
+            display: flex;
+            align-items: center;
+            background-color: #FFF;
+            padding: 10px 20px;
+            height: 50px;
+
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .finish-purchase-button {
+            max-width: max-content;
+        }
+    }
+
+}
+
