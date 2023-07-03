@@ -1,0 +1,18 @@
+.product-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+}
+
+:host ::ng-deep {
+    /* ...you styles will here */
+    app-product-form {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 600px;
+    }
+ }

@@ -20,3 +20,13 @@
         }
     }
 }
+
+app-product-card {
+    max-width: 320px;
+}
+
+@media (max-width: 469px) {
+    app-product-card {
+        max-width: none;
+    }
+}

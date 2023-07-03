@@ -51,7 +51,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
     this.productForm = new FormGroup({
       nome: new FormControl(this.product ? this.product.nome : "", [Validators.required, Validators.minLength(1)]),
-      descricao: new FormControl(this.product ? this.product.descricao : "", Validators.minLength(6)),
+      descricao: new FormControl(this.product ? this.product.descricao : "", [Validators.required, Validators.minLength(6)]),
     });
 
     this._productService.isLoadingRequest.subscribe(value => {

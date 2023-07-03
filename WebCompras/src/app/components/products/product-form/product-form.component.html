@@ -12,7 +12,7 @@
         <p-inputNumber class="input-number" name="price" id="price" [(ngModel)]="preco" [ngModelOptions]="{standalone: true}" mode="currency" currency="BRL" locale="pt-BR"></p-inputNumber>
     </div>
     <div class="form-group">
-        <p-button class="button-submit" [disabled]="isLoading" type="submit" >
+        <p-button class="button-submit" [disabled]="(isLoading || formDir.invalid!)" type="submit" >
             <span *ngIf="!isLoading">{{ buttonText }}</span>
             <span *ngIf="isLoading">
                 <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>

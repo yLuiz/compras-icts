@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: "carrinho", component: PurchaseCartComponent },
       { path: "editar/:id", component: PurchaseEditComponent }
   ] },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'produtos' }
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 ﻿using Compras.Data;
 using Compras.Models;
+using Compras.Services;
 using Compras.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,30 +13,33 @@ namespace Compras.Controllers
     public class ProdutosController : ControllerBase
     {
 
-        private readonly AppDbContext _context;
+        private readonly ProdutoService _produtoService;
 
-        public ProdutosController([FromServices] AppDbContext context)
+        public ProdutosController(
+            [FromServices] ProdutoService produtoService
+        )
         {
-            _context = context;
+            _produtoService = produtoService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var produtos = await _context.Produtos
-                    .AsNoTracking()
-                    .ToListAsync();
+            var produtos = await _produtoService.GetAllAsync();
 
             return Ok(produtos);
         }
 
+
+        
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(
             [FromRoute] int id
         )
         {
 
-            var produto = await _context.Produtos.FirstOrDefaultAsync(produto => produto.Id == id);
+            var produto = await _produtoService.GetByIdAsync(id);
 
             if (produto == null)
             {
@@ -47,6 +51,7 @@ namespace Compras.Controllers
 
             return Ok(produto);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateAsync(
@@ -65,11 +70,11 @@ namespace Compras.Controllers
                 Preco = produtoView.Preco
             };
 
-            await _context.Produtos.AddAsync(newProdct);
-            await _context.SaveChangesAsync();
+            await _produtoService.CreateAsync(newProdct);
 
             return Ok();
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateByIdAsync(
@@ -78,7 +83,7 @@ namespace Compras.Controllers
         )
         {
 
-            var productExists = await _context.Produtos.FirstOrDefaultAsync(produto => produto.Id == id);
+            var productExists = await _produtoService.GetByIdAsync(id);
             if (productExists == null)
             {
                 return NotFound();
@@ -90,9 +95,7 @@ namespace Compras.Controllers
 
             try
             {
-                _context.Produtos.Update(productExists);
-                await _context.SaveChangesAsync();
-
+                await _produtoService.UpdateAsync(productExists);
 
                 return Ok();
             }
@@ -108,14 +111,13 @@ namespace Compras.Controllers
             [FromRoute] int id
         )
         {
-            var productExists = await _context.Produtos.FirstOrDefaultAsync(produto => produto.Id == id);
+            var productExists = await _produtoService.GetByIdAsync(id);
             if (productExists == null)
             {
                 return NotFound();
             }
 
-            _context.Produtos.Remove(productExists);
-            await _context.SaveChangesAsync();
+            await _produtoService.DeleteByIdAsync(productExists);
 
             return Ok();
         }

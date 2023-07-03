@@ -24,6 +24,11 @@
         <span  class="total-price">
             Total: {{ totalPrice | currency: "BRL" }}
         </span>
-        <button class="finish-purchase-button" (click)="finishPurchase()" pButton>Finalizar compra</button>
+        <button [disabled]="isLoading" class="finish-purchase-button" (click)="finishPurchase()" pButton>
+            <span *ngIf="!isLoading">Finalizar compra</span>
+            <span *ngIf="isLoading">
+                <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
+            </span>
+        </button>
     </footer>
 </section>

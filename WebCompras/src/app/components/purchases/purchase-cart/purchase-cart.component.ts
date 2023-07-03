@@ -29,6 +29,7 @@ export class PurchaseCartComponent implements OnInit {
 
   productsInCart: IProduct[] = [];
   totalPrice = 0;
+  isLoading = false;
 
   constructor(
     private _purchasecartService: PurchaseCartService,
@@ -70,28 +71,34 @@ export class PurchaseCartComponent implements OnInit {
 
     const purchase = this.createPurchaseObject(this.totalPrice, this.paymentSelected, this.productsInCart);
 
-    this._purchaseService.createPurchase(purchase).subscribe({
-      next: response => {
-        this._messageService.add({
-          summary: "Sucesso",
-          detail: "Compra efetuada com sucesso",
-          severity: "success"
-        })
+    this.isLoading = true;
 
-        this._purchasecartService.clean();
-        this._purchasecartService.saveChangesLocally();
-        this.updateCart();
-        this._router.navigate(["/compras"]);
-      },
-      error: response => {
-        console.error(response);
-        this._messageService.add({
-          summary: "Error",
-          detail: "Não foi possivel efetuar a compra.",
-          severity: "error"
-        })
-      }
-    });
+    setTimeout(() => {
+      this._purchaseService.createPurchase(purchase).subscribe({
+        next: response => {
+          this._messageService.add({
+            summary: "Sucesso",
+            detail: "Compra efetuada com sucesso",
+            severity: "success"
+          })
+  
+          this._purchasecartService.clean();
+          this._purchasecartService.saveChangesLocally();
+          this.updateCart();
+          this.isLoading = false;
+          this._router.navigate(["/compras"]);
+        },
+        error: response => {
+          console.error(response);
+          this._messageService.add({
+            summary: "Error",
+            detail: "Não foi possivel efetuar a compra.",
+            severity: "error"
+          })
+          this.isLoading = false;
+        }
+      });
+    }, 250)
   }
 
   ngOnInit(): void {

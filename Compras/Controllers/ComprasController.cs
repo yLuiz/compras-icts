@@ -1,5 +1,6 @@
 ﻿using Compras.Data;
 using Compras.Models;
+using Compras.Services;
 using Compras.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,51 +14,30 @@ namespace Compras.Controllers
     public class ComprasController : ControllerBase
     {
 
-        private readonly AppDbContext _context;
+        private readonly ComprasService _comprasService;
+        private readonly ProdutoService _produtoService;
         public ComprasController(
-            [FromServices] AppDbContext context
-        ) { 
-            _context = context;
+            [FromServices] ComprasService comprasService,
+            [FromServices] ProdutoService produtoService
+        ) {
+            _comprasService = comprasService;
+            _produtoService = produtoService;
         }
-
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(
-            [FromServices] AppDbContext context
-        )
+        public async Task<IActionResult> GetAllAsync()
         {
 
-            var compras = await context.Compras
-                .AsNoTracking()
-                .Select(compra => new
-                {
-                    compra.Id,
-                    compra.Status,
-                    compra.Tipo_pagamento,
-                    compra.Total,
-                    produtos = compra.Produtos.Select(produto => new
-                    {
-                        produto.Id,
-                        produto.Nome,
-                        produto.Preco,
-                        produto.Descricao,
-                        produto.Data_criacao,
-                        produto.Data_atualizacao
-                    })
-                })
-                .ToListAsync();
+            var compras = await _comprasService.GetAllAsync();
 
             return Ok(compras);
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(
             [FromRoute] int id
         )
         {
-            var compra = await _context.Compras
-                .Include(compra => compra.Produtos)
-                .FirstOrDefaultAsync(compra => compra.Id == id);
+            var compra = await _comprasService.GetByIdAsync(id);
 
             if (compra == null)
             {
@@ -72,8 +52,7 @@ namespace Compras.Controllers
             [FromBody] CompraViewModel compraView
         )
         {
-            var produtos = await _context.Produtos.Where(produto => compraView.Produtos!.Contains(produto.Id))
-                .ToListAsync();
+            var produtos = await _produtoService.GetManyByIds(compraView.Produtos!);
 
             List<int> produtosIds = new();
             double precoTotalProdutos = 0;
@@ -102,11 +81,12 @@ namespace Compras.Controllers
                 Produtos = produtos
             };
 
-            var compraRegistrada = await _context.Compras.AddAsync(newCompra);
-            await _context.SaveChangesAsync();
+            await _comprasService.CreateAsync(newCompra);
 
             return Ok();
         }
+
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateByIdAsync(
@@ -114,7 +94,7 @@ namespace Compras.Controllers
             [FromRoute] int id
         )
         {
-            var compraExists = await _context.Compras.FirstOrDefaultAsync(compra => compra.Id == id);
+            var compraExists = await _comprasService.GetByIdAsync(id);
 
             if (compraExists == null)
             {
@@ -124,11 +104,11 @@ namespace Compras.Controllers
             compraExists.Status = compraView.Status;
             compraExists.Tipo_pagamento = compraView.Tipo_pagamento;
 
-            _context.Compras.Update(compraExists);
-            await _context.SaveChangesAsync();
+            await _comprasService.UpdateAsync(compraExists);
 
             return Ok();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteByIdAsync(
@@ -136,17 +116,19 @@ namespace Compras.Controllers
         )
         {
 
-            var compraExists = await _context.Compras.FirstOrDefaultAsync(compra => compra.Id == id);
-
+            var compraExists = await _comprasService.GetByIdAsync(id);
+             
             if (compraExists == null)
             {
                 return NotFound();
             }
 
-            _context.Compras.Remove(compraExists);
-            await _context.SaveChangesAsync();
+            await _comprasService.DeleteAsync(compraExists);
 
             return Ok();
         }
+        /*
+
+        */
     }
 }

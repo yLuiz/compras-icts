@@ -1,6 +1,9 @@
 <section class="products-container">
 
     <ul *ngIf="!isLoading else loading" class="product-list">
+
+        <h2 *ngIf="!products.length" >Não produtos cadastrados</h2>
+
         <ng-container *ngFor="let product of products">
             <app-product-card [product]="product"></app-product-card>
         </ng-container>
