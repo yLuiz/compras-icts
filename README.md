@@ -4,13 +4,13 @@ Sistema de controle de compras, sugerido como teste técnico pelo Grupo ICTS.
 
 # 🖼 Front-end
 
-# 💻 Tecnologias
+## 💻 Tecnologias
 * Angular 14+
 * PrimeNG
 * Node.js
 * Typescript
 
-# ⚙ Configuração
+## ⚙ Configuração
 Para conseguir rodar o Front-end, você precisa ter instalado o Node.js e Angular 14.x.
 Após isso, clone o repositório e entre na pasta `./WebCompras` e execute o seguinte comando para instalar as dependências do projeto:
 
@@ -19,7 +19,7 @@ $ npm install
 ```
 * Obs: Vale lembrar que o Backend precisa está configurado e ligado para a aplicação funcionar
 
-# 🚀 Executando
+## 🚀 Executando
 Após a instalação das dependências, execute o seguinte comando:
 
 ``` bash
@@ -36,7 +36,7 @@ Depois é só acessar em sua máquina o seguinte endereço: `http://localhost:42
 * Entity Framework Core
 * SQLite
 
-# ⚙ Configuração
+## ⚙ Configuração
 Para conseguir rodar o Backe-end, você precisa ter instalado o .NET 6 e o Entity Framework Core em sua máquina.
 Após isso, clone o repositório e entre na pasta `./Compras` e execute o seguinte comando para buildar a aplicação:
 
@@ -61,7 +61,7 @@ $ dotnet ef database update
 ```
 
 
-# 🚀 Executando
+## 🚀 Executando
 Após a configurção, execute o seguinte comando:
 
 ``` bash
@@ -72,5 +72,5 @@ $ dotnet watch run
 
 ```
 
-# 🔀 Rotas
+## 🔀 Rotas
 Para saber quais as rotas existentes, acesse: `https://localhost:7172/swagger/index.html`
