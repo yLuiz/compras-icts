@@ -2,7 +2,7 @@
 
 Sistema de controle de compras, sugerido como teste técnico pelo Grupo ICTS.
 
-# Front-end
+# 🖼 Front-end
 
 # 💻 Tecnologias
 * Angular 14+
@@ -28,7 +28,7 @@ $ npm start
 
 Depois é só acessar em sua máquina o seguinte endereço: `http://localhost:4200/`
 
-# Back-end
+# 📡 Back-end
 
 # 💻 Tecnologias
 * C#
