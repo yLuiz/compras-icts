@@ -77,7 +77,7 @@ Para saber quais as rotas existentes, acesse: `https://localhost:7172/swagger/in
 
 # Observações
 
-* Neste projeto, utilizei no backend um Design Pattern conhecido com IoC (Inversion of Controll) e para sua implementação utilizei a técnica conhecida como Dependency Injection, que represendo a letra D do conhecido SOLID.
+* Neste projeto, utilizei no backend um Design Pattern conhecido como IoC (Inversion of Controll) e para sua implementação utilizei a técnica conhecida como Dependency Injection, que representa a letra D do conhecido SOLID.
 * Caso haja alguma coisa que eu possa melhorar no sistema, estarei totalmento aberto a criticas. Afinal, assim posso melhorar minhas habilidades no desenvolvimento.
 * Qualquer dúvida em relação ao teste, entre em contato via email: luizvictor1231@gmail.com
 
